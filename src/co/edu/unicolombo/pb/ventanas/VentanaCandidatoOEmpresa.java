@@ -77,7 +77,7 @@ public class VentanaCandidatoOEmpresa extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel2.setText("EMPRESA");
+        jLabel2.setText("Empresario");
 
         btnEmpresa.setBackground(new java.awt.Color(255, 255, 0));
         btnEmpresa.setForeground(new java.awt.Color(255, 255, 0));
@@ -236,15 +236,17 @@ public class VentanaCandidatoOEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_itemTutorialActionPerformed
 
     private void btnEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpresaActionPerformed
-      VentanaRegistroEmpresa IE = new VentanaRegistroEmpresa(this,true);
+     VentanaRegistroUsuarioEm IE= new VentanaRegistroUsuarioEm(this,true);
       IE.setLocationRelativeTo(this);
       IE.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_btnEmpresaActionPerformed
 
     private void BtnUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUsuario1ActionPerformed
-       VentanaRegistroBuscaEmpleo US = new VentanaRegistroBuscaEmpleo(this, true);
+     VentanaRegistroUsuario US = new VentanaRegistroUsuario(this, true);
      US.setLocationRelativeTo(this);
      US.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_BtnUsuario1ActionPerformed
 
     private void BtnUsuario1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUsuario1MouseEntered

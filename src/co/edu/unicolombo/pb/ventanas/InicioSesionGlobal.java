@@ -4,10 +4,15 @@
  */
 package co.edu.unicolombo.pb.ventanas;
 
-import co.edu.unicolombo.pb.entidades.BuscaEmpleo;
-import co.edu.unicolombo.pb.entidades.Empresa;
+
+import co.edu.unicolombo.pb.entidades.UsuarioC;
+import co.edu.unicolombo.pb.entidades.UsuarioEm;
 import co.edu.unicolombo.pb.persistencia.Almacenamiento;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -158,39 +163,78 @@ public class InicioSesionGlobal extends javax.swing.JFrame {
 
     private void btnRegistroGlobalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroGlobalActionPerformed
         VentanaCandidatoOEmpresa v = new VentanaCandidatoOEmpresa();
-        v.setLocationRelativeTo(this);
+        v.setLocationRelativeTo(null);
         v.setVisible(true);
-    
-        
+
+
     }//GEN-LAST:event_btnRegistroGlobalActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-         try {
-          String correo = campoCorreo.getText();
-          String contrasena = String.valueOf(campoContrasena.getPassword());
-          BuscaEmpleo.buscaEmpleo = Almacenamiento.recuperarBE();
-          Empresa.empresas = Almacenamiento.recuperarE();
-          if (BuscaEmpleo.buscaEmpleo.containsKey(correo)) {
-              BuscaEmpleo e = BuscaEmpleo.buscaEmpleo.get(correo);
-              if (contrasena.equals(e.contrasena)){
-                  // colocar ventana icinio candidatos
-              JOptionPane.showMessageDialog(this, "El cacho te hace mas fuerte");
-              }
-              
-          }else if (Empresa.empresas.containsKey(correo)) {
-              Empresa u = Empresa.empresas.get(correo);
-              if (contrasena.equals(u.contrasena)){
-                  // Colocar Ventana inicio de empresas
-              JOptionPane.showMessageDialog(this, "bienvenido");
-              }
-             
-          }else {
-           JOptionPane.showMessageDialog(this, "El usuario no esta registrado...");
-          }
-      } catch (Exception ex) {
-           JOptionPane.showMessageDialog(this, ex.getMessage()+"jesus");
-      }
-         
+
+        PerfilUsuarioEmpresa u = new PerfilUsuarioEmpresa();
+        u.setLocationRelativeTo(null);
+        u.setVisible(false);
+        try {
+            String correo = campoCorreo.getText();
+            String contrasena = String.valueOf(campoContrasena.getPassword());
+            UsuarioC.candidato = Almacenamiento.recuperarUC();
+            UsuarioEm.usuarioEm = Almacenamiento.recuperarUE();
+           
+            if (UsuarioC.candidato.containsKey(correo)) {
+                UsuarioC e = UsuarioC.candidato.get(correo);
+                if (contrasena.equals(e.contrasena)) {
+                    // colocar interfaz interactiva con los busca empleo
+
+                    if (e instanceof UsuarioC) {
+                        InicioApp v = new InicioApp();
+                        JMenuBar barraMenus = v.getJMenuBar();
+                        JMenu menuArchivo = barraMenus.getMenu(1);
+                        JMenuItem miEmpresa = menuArchivo.getItem(1);
+                        JMenuItem registrarEmpresa = menuArchivo.getItem(0);
+
+                        registrarEmpresa.setEnabled(false);
+                        miEmpresa.setEnabled(false);
+                        v.setLocationRelativeTo(null);
+                        v.setVisible(true);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "La Contraseña es incorrecta");
+                }
+
+            } else if (UsuarioEm.usuarioEm.containsKey(correo)) {
+                UsuarioEm e = UsuarioEm.usuarioEm.get(correo);
+                if (contrasena.equals(e.contrasena)) {
+                    InicioApp v = new InicioApp();
+                    JMenuBar barraMenus = v.getJMenuBar();
+                    JMenu menuArchivo = barraMenus.getMenu(1);
+                    JMenuItem miEmpresa = menuArchivo.getItem(0);
+                    JMenuItem registrarEmpresa = menuArchivo.getItem(1);
+
+                    if (e instanceof UsuarioEm) {
+                        if (!e.empresas.isEmpty()) {
+                            miEmpresa.setEnabled(true);
+                            registrarEmpresa.setEnabled(false);
+                            v.setLocationRelativeTo(null);
+                            v.setVisible(true);
+                        } else {
+                            miEmpresa.setEnabled(false);
+                            registrarEmpresa.setEnabled(true);
+                            v.setLocationRelativeTo(null);
+                            v.setVisible(true);
+                        }
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El correo o la contraseña es incorrecta");
+
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage() + "TUTU");
+        }
+
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void campoContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContrasenaActionPerformed
@@ -236,7 +280,7 @@ public class InicioSesionGlobal extends javax.swing.JFrame {
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton btnRegistroGlobal;
     private javax.swing.JPasswordField campoContrasena;
-    private javax.swing.JTextField campoCorreo;
+    public static javax.swing.JTextField campoCorreo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

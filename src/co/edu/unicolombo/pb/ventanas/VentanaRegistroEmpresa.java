@@ -4,16 +4,19 @@
  */
 package co.edu.unicolombo.pb.ventanas;
 
-
 import co.edu.unicolombo.pb.entidades.Empresa;
+import co.edu.unicolombo.pb.entidades.UsuarioC;
+import co.edu.unicolombo.pb.entidades.UsuarioEm;
 import co.edu.unicolombo.pb.persistencia.Almacenamiento;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-
-
 public class VentanaRegistroEmpresa extends javax.swing.JDialog {
-   
 
     /**
      * Creates new form VentanaEmpresa
@@ -33,7 +36,6 @@ public class VentanaRegistroEmpresa extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         campoNombreEmpresa = new javax.swing.JTextField();
@@ -42,15 +44,15 @@ public class VentanaRegistroEmpresa extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         btnRegistrarEm = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        campoContrasenaEm = new javax.swing.JPasswordField();
+        jLabel5 = new javax.swing.JLabel();
+        campoDireccionEm = new javax.swing.JTextField();
+        campoTelefonoEm = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 255), 2, true), "Registro de empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sitka Display", 0, 24), new java.awt.Color(0, 0, 204))); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Sitka Display", 0, 20)); // NOI18N
-        jLabel1.setText("Contraseña:");
 
         jLabel2.setFont(new java.awt.Font("Sitka Display", 0, 20)); // NOI18N
         jLabel2.setText("Nombre de la empresa:");
@@ -59,7 +61,7 @@ public class VentanaRegistroEmpresa extends javax.swing.JDialog {
         jLabel4.setText("Correo:");
 
         jLabel7.setFont(new java.awt.Font("Sitka Display", 0, 20)); // NOI18N
-        jLabel7.setText("Nit");
+        jLabel7.setText("Nit:");
 
         btnRegistrarEm.setFont(new java.awt.Font("MingLiU-ExtB", 1, 18)); // NOI18N
         btnRegistrarEm.setText("Registrar empresa");
@@ -73,61 +75,77 @@ public class VentanaRegistroEmpresa extends javax.swing.JDialog {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("DATOS DE LA EMPRESA");
 
+        jLabel5.setFont(new java.awt.Font("Sitka Display", 0, 20)); // NOI18N
+        jLabel5.setText("Direccion:");
+
+        jLabel6.setFont(new java.awt.Font("Sitka Display", 0, 20)); // NOI18N
+        jLabel6.setText("Telefono:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegistrarEm))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(43, 43, 43)
-                                .addComponent(campoNombreEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(87, 87, 87)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(campoNit)
-                                    .addComponent(campoCorreoEm)
-                                    .addComponent(campoContrasenaEm))))))
-                .addGap(34, 34, 34))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnRegistrarEm))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(34, 34, 34)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jLabel2)
+                                                                .addGap(43, 43, 43)
+                                                                .addComponent(campoNombreEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jLabel4)
+                                                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(111, 111, 111)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(campoNit)
+                                                                        .addComponent(campoCorreoEm)))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jLabel6)
+                                                                .addGap(110, 110, 110)
+                                                                .addComponent(campoTelefonoEm))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jLabel5)
+                                                                .addGap(110, 110, 110)
+                                                                .addComponent(campoDireccionEm)))))
+                                .addGap(34, 34, 34))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(campoNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(campoContrasenaEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(campoCorreoEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(campoNit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(119, 119, 119)
-                .addComponent(btnRegistrarEm)
-                .addContainerGap(85, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(campoNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(campoNit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(campoCorreoEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(campoDireccionEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(campoTelefonoEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(79, 79, 79)
+                                .addComponent(btnRegistrarEm)
+                                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         jLabel8.setFont(new java.awt.Font("Sitka Display", 1, 36)); // NOI18N
@@ -137,53 +155,86 @@ public class VentanaRegistroEmpresa extends javax.swing.JDialog {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarEmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEmActionPerformed
+
+        try {
+            UsuarioEm.usuarioEm = Almacenamiento.recuperarUE();
+            System.out.println("Usuarios recuperados: " + UsuarioEm.usuarioEm);
+        } catch (Exception ex) {
+            Logger.getLogger(PerfilUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+// Registro de Empresa
         String nombreEm = campoNombreEmpresa.getText();
         String nit = campoNit.getText();
-        String contrasena = String.valueOf(campoContrasenaEm.getPassword());
+        String direccion = campoDireccionEm.getText();
+        String telefono = campoTelefonoEm.getText();
         String correo = campoCorreoEm.getText();
-       
-        if (Empresa.empresas.containsKey(correo)) {
-           JOptionPane.showMessageDialog(this, "Ya se creo una cuenta con este correo porfavor regrese e inicie sesion");
-                return;
-            }
-            
-            // se crea la empresa
-    Empresa empresa = new Empresa();
-        empresa.nombre = nombreEm;
-        empresa.correo = correo;
-        empresa.contrasena = contrasena;
-        empresa.nit = nit;
-        Empresa.empresas.put(correo, empresa);
-        
-        try {
-            Almacenamiento.guardarE(Empresa.empresas);
-            JOptionPane.showMessageDialog(this, "Registrado con exito...");
-        } catch (IOException error) {
-            JOptionPane.showMessageDialog(this, error.getMessage());
+
+        System.out.println("Correo de la empresa a registrar: " + correo);
+
+        if (UsuarioC.candidato.containsKey(correo) || UsuarioEm.usuarioEm.containsKey(correo) || Empresa.empresas.containsKey(correo)) {
+            JOptionPane.showMessageDialog(this, "Ya se registró una cuenta o una empresa con este correo...");
+            return;
         }
-        
-        
+
+        String correoUEM = InicioSesionGlobal.campoCorreo.getText();
+        System.out.println("Correo del usuario actual: " + correoUEM);
+
+        if (UsuarioEm.usuarioEm.containsKey(correoUEM)) {
+            UsuarioEm e = UsuarioEm.usuarioEm.get(correoUEM);
+
+            Empresa empresa = new Empresa(nombreEm, nit, telefono, direccion, correo);
+            empresa.nombre = nombreEm;
+            empresa.correo = correo;
+            empresa.direccion = direccion;
+            empresa.telefono = telefono;
+            empresa.nit = nit;
+            Empresa.empresas.put(correo, empresa);
+            UsuarioEm.usuarioEm.put(correoUEM, e);
+            e.crearEmpresa(nombreEm, nit, telefono, direccion, direccion, direccion, correo);
+            System.out.println("Empresa asociada al usuario: " + empresa);
+            try {
+                Almacenamiento.guardarE(Empresa.empresas);
+                JOptionPane.showMessageDialog(this, "Registrado con éxito...");
+            } catch (IOException error) {
+                JOptionPane.showMessageDialog(this, error.getMessage());
+            }
+
+        } else {
+            System.out.println("Usuario no encontrado.");
+        }
+
+        InicioApp v = new InicioApp();
+        JMenuBar barraMenus = v.getJMenuBar();
+        JMenu menuArchivo = barraMenus.getMenu(1);
+        JMenuItem miEmpresa = menuArchivo.getItem(1);
+        JMenuItem registrarEmpresa = menuArchivo.getItem(0);
+        registrarEmpresa.setEnabled(true);
+        miEmpresa.setEnabled(false);
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+        setVisible(false);
+
     }//GEN-LAST:event_btnRegistrarEmActionPerformed
 
     /**
@@ -231,13 +282,15 @@ public class VentanaRegistroEmpresa extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarEm;
-    private javax.swing.JPasswordField campoContrasenaEm;
-    private javax.swing.JTextField campoCorreoEm;
+    public static javax.swing.JTextField campoCorreoEm;
+    private javax.swing.JTextField campoDireccionEm;
     private javax.swing.JTextField campoNit;
     private javax.swing.JTextField campoNombreEmpresa;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField campoTelefonoEm;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
