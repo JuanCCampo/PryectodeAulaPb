@@ -4,14 +4,8 @@
  */
 package co.edu.unicolombo.pb.ventanas;
 
-import co.edu.unicolombo.pb.entidades.UsuarioC;
 import co.edu.unicolombo.pb.entidades.UsuarioEm;
 import co.edu.unicolombo.pb.persistencia.Almacenamiento;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoCedula;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoCorreo;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoExperienciaLaboral;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoNombre;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoProfesion;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -131,39 +125,35 @@ public class EditarUEm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarUCEmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUCEmActionPerformed
-     String correo = campoCorreoUEM.getText();
-     
-       VentanaPerfilUe u = new  VentanaPerfilUe();
+        String correo = campoCorreoUEM.getText();
+        
+        PerfilUsuarioEmpresa u = new PerfilUsuarioEmpresa();
         u.setLocationRelativeTo(null);
-      
+        
         if (UsuarioEm.usuarioEm.containsKey(correo)) {
-           UsuarioEm e = UsuarioEm.usuarioEm.get(correo);
-           
-           e.nombre = campoNombreUEM.getText();
-           e.cedula = campoCedulaUEM.getText();
-           e.cargo = campoCargoUEM.getText();
+            UsuarioEm e = UsuarioEm.usuarioEm.get(correo);
             
-           
+            e.nombre = campoNombreUEM.getText();
+            e.cedula = campoCedulaUEM.getText();
+            e.cargo = campoCargoUEM.getText();
+            
             UsuarioEm.usuarioEm.put(correo, e);
             
-           
-            
-             try {
-            Almacenamiento.guardarUE(UsuarioEm.usuarioEm);
-            JOptionPane.showMessageDialog(this, "Sus datos han sido editados con exito...");
-        } catch (IOException error) {
-            JOptionPane.showMessageDialog(this, error.getMessage());
-        
-       
-        } 
-            VentanaPerfilUe.etqNombre.setText(e.nombre);
-            VentanaPerfilUe.etqCedula.setText(e.cedula);
-            VentanaPerfilUe.etqCorreo.setText(e.correo);
-            VentanaPerfilUe.etqCargo.setText(e.cargo);
+            try {
+                Almacenamiento.guardarUE(UsuarioEm.usuarioEm);
+                JOptionPane.showMessageDialog(this, "Sus datos han sido editados con exito...");
+            } catch (IOException error) {
+                JOptionPane.showMessageDialog(this, error.getMessage());
+                
+            }            
+            PerfilUsuarioEmpresa.etqNombre.setText(e.nombre);
+            PerfilUsuarioEmpresa.etqCedula.setText(e.cedula);
+            PerfilUsuarioEmpresa.etqCorreo.setText(e.correo);
+            PerfilUsuarioEmpresa.etqCargo.setText(e.cargo);
         }
         
-            dispose();
-         
+        setVisible(false);
+        
         u.setVisible(true);
     }//GEN-LAST:event_btnGuardarUCEmActionPerformed
 

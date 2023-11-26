@@ -4,27 +4,90 @@
  */
 package co.edu.unicolombo.pb.entidades;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  *
  * @author Jesus Ramos
  */
-public class Convocatoria {
-    public String numero;
+public class Convocatoria implements Serializable{
+    public static HashMap<Integer, Convocatoria> convocatorias = new HashMap<>();
+    public int numero;
     public Date Fecha_Inicio;
     public Date Fecha_Fin;
     public String Vacante;
-    public int Sueldo;
-    public ArrayList <Object> Usuarios_Que_Aplicaron = new ArrayList<>();
-    
-      
-    public Convocatoria(String numero, Date fecha_Inicio, Date fecha_Fin, String bacante, int sueldo) {
+    public String Sueldo;
+    public ArrayList <UsuarioC> Usuarios_Que_Aplicaron = new ArrayList<>();
+    public Empresa empresa;
+
+    public Convocatoria(int numero, Date Fecha_Inicio, Date Fecha_Fin, String Vacante, String Sueldo) {
         this.numero = numero;
-        Fecha_Inicio = fecha_Inicio;
-        Fecha_Fin = fecha_Fin;
-        Vacante = bacante;
-        Sueldo = sueldo;
+        this.Fecha_Inicio = Fecha_Inicio;
+        this.Fecha_Fin = Fecha_Fin;
+        this.Vacante = Vacante;
+        this.Sueldo = Sueldo;
     }
-    public Convocatoria() {}
+
+
+    public static HashMap<Integer, Convocatoria> getConvocatorias() {
+        return convocatorias;
+    }
+
+    public static void setConvocatorias(HashMap<Integer, Convocatoria> convocatorias) {
+        Convocatoria.convocatorias = convocatorias;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public Date getFecha_Inicio() {
+        return Fecha_Inicio;
+    }
+
+    public void setFecha_Inicio(Date Fecha_Inicio) {
+        this.Fecha_Inicio = Fecha_Inicio;
+    }
+
+    public Date getFecha_Fin() {
+        return Fecha_Fin;
+    }
+
+    public void setFecha_Fin(Date Fecha_Fin) {
+        this.Fecha_Fin = Fecha_Fin;
+    }
+
+    public String getVacante() {
+        return Vacante;
+    }
+
+    public void setVacante(String Vacante) {
+        this.Vacante = Vacante;
+    }
+
+    public String getSueldo() {
+        return Sueldo;
+    }
+
+    public void setSueldo(String Sueldo) {
+        this.Sueldo = Sueldo;
+    }
+
+    @Override
+     public String toString() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        return "Número de Convocatoria: " + numero +
+               "\nFecha de Inicio: " + formatoFecha.format(Fecha_Inicio) +
+               "\nFecha de Fin: " + formatoFecha.format(Fecha_Fin) +
+               "\nVacante: " + Vacante +
+               "\nSueldo: " + Sueldo;
+    }
+      
+  
 }

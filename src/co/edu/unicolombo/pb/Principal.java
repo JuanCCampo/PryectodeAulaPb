@@ -31,7 +31,7 @@ public class Principal {
            InicioSesionGlobal v = new InicioSesionGlobal();
            v.setTitle("UNEMPLEO");
            v.setVisible(true);
-                
+           v.setLocationRelativeTo(null);
                 
             }
         
