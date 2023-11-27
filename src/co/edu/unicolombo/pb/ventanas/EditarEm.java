@@ -5,14 +5,7 @@
 package co.edu.unicolombo.pb.ventanas;
 
 import co.edu.unicolombo.pb.entidades.Empresa;
-import co.edu.unicolombo.pb.entidades.UsuarioC;
-import co.edu.unicolombo.pb.entidades.UsuarioEm;
 import co.edu.unicolombo.pb.persistencia.Almacenamiento;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoCedula;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoCorreo;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoExperienciaLaboral;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoNombre;
-import static co.edu.unicolombo.pb.ventanas.EditarUC.campoProfesion;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -148,42 +141,36 @@ public class EditarEm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarUCEmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUCEmActionPerformed
-     String correo = campoCorreoEM.getText();
-     
-       PerfilUsuarioEmpresa u = new  PerfilUsuarioEmpresa();
+        String correo = campoCorreoEM.getText();
+
+        PerfilEmpresa u = new PerfilEmpresa();
         u.setLocationRelativeTo(null);
-      
+
         if (Empresa.empresas.containsKey(correo)) {
-           Empresa e = Empresa.empresas.get(correo);
-           
-           e.nombre = campoNombreEM.getText();
-           e.telefono = campoTelefonoEM.getText();
-           e.direccion = campoDirreccionEM.getText();
-           e.telefono = campoTelefonoEM.getText();
-           e.nit = campoNitEM.getText();
-            
-           
+            Empresa e = Empresa.empresas.get(correo);
+
+            e.nombre = campoNombreEM.getText();
+            e.telefono = campoTelefonoEM.getText();
+            e.direccion = campoDirreccionEM.getText();
+            e.telefono = campoTelefonoEM.getText();
+            e.nit = campoNitEM.getText();
+
             Empresa.empresas.put(correo, e);
-            
-           
-            
-             try {
-            Almacenamiento.guardarE(Empresa.empresas);
-            JOptionPane.showMessageDialog(this, "Sus datos han sido editados con exito...");
-        } catch (IOException error) {
-            JOptionPane.showMessageDialog(this, error.getMessage());
-        
-       
-        } 
+
+            try {
+                Almacenamiento.guardarE(Empresa.empresas);
+                JOptionPane.showMessageDialog(this, "Sus datos han sido editados con exito...");
+            } catch (IOException error) {
+                JOptionPane.showMessageDialog(this, error.getMessage());
+
+            }
             PerfilEmpresa.etqNombre.setText(e.nombre);
             PerfilEmpresa.etqNit.setText(e.nit);
             PerfilEmpresa.etqCorreo.setText(e.correo);
             PerfilEmpresa.etqDireccion.setText(e.direccion);
             PerfilEmpresa.etqTelefono.setText(e.telefono);
         }
-        
-            dispose();
-         
+
         u.setVisible(true);
     }//GEN-LAST:event_btnGuardarUCEmActionPerformed
 

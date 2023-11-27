@@ -15,6 +15,10 @@ import java.util.*;
  */
 public class UsuarioC implements Serializable{
     public static HashMap<String, UsuarioC> candidato = new HashMap<>();
+
+    public static UsuarioC getUsuarioActual() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
      public String contrasena;
     public String correo; 
     public String nombre;

@@ -4,11 +4,11 @@
  */
 package co.edu.unicolombo.pb.ventanas;
 
-
-
+import co.edu.unicolombo.pb.entidades.Empresa;
 import co.edu.unicolombo.pb.entidades.UsuarioC;
 import co.edu.unicolombo.pb.entidades.UsuarioEm;
 import co.edu.unicolombo.pb.persistencia.Almacenamiento;
+import static co.edu.unicolombo.pb.ventanas.PerfilEmpresa.etqNombre;
 import static co.edu.unicolombo.pb.ventanas.PerfilUsuario.etqCorreo;
 import java.awt.Image;
 import java.util.logging.Level;
@@ -96,6 +96,11 @@ public class PerfilUsuarioEmpresa extends javax.swing.JFrame {
         jMenu1.add(Editar);
 
         Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
         jMenu1.add(Eliminar);
 
         Cerrarsesion.setText("Cerrar sesion...");
@@ -146,6 +151,11 @@ public class PerfilUsuarioEmpresa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelDePfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(FtPerfil)
+                        .addGap(78, 78, 78))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(etqNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,11 +171,8 @@ public class PerfilUsuarioEmpresa extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(etqCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(labelDePfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(FtPerfil)
-                .addGap(78, 78, 78))
+                            .addComponent(etqCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -174,44 +181,63 @@ public class PerfilUsuarioEmpresa extends javax.swing.JFrame {
     private void FtPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FtPerfilActionPerformed
         String Ruta = "";
         JFileChooser jFileChooser = new JFileChooser();
-        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JGP,PNG & GIT","jgp","png","git");
+        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JGP,PNG & GIT", "jgp", "png", "git");
         jFileChooser.setFileFilter(filtrado);
-
+        
         int respuesta = jFileChooser.showOpenDialog(this);
-        if(respuesta == JFileChooser.APPROVE_OPTION){
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
             Ruta = jFileChooser.getSelectedFile().getPath();
-
+            
             Image nImagen = new ImageIcon(Ruta).getImage();
-            ImageIcon mIcono = new ImageIcon (nImagen.getScaledInstance(labelDePfEmpresa.getWidth(), labelDePfEmpresa.getHeight(),Image.SCALE_SMOOTH));
+            ImageIcon mIcono = new ImageIcon(nImagen.getScaledInstance(labelDePfEmpresa.getWidth(), labelDePfEmpresa.getHeight(), Image.SCALE_SMOOTH));
             labelDePfEmpresa.setIcon(mIcono);
-
+            
         }
     }//GEN-LAST:event_FtPerfilActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-       String correo = etqCorreo.getText();
-       EditarUEm v = new EditarUEm();
-       v.setLocationRelativeTo(null);
-       
+        String correo = etqCorreo.getText();
+        EditarUEm v = new EditarUEm();
+        v.setLocationRelativeTo(null);
+        
         try {
             UsuarioEm.usuarioEm = Almacenamiento.recuperarUE();
         } catch (Exception ex) {
             Logger.getLogger(PerfilUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        if (UsuarioEm.usuarioEm.containsKey(correo)) {
-                 v.setVisible(true);
-              UsuarioEm e = UsuarioEm.usuarioEm.get(correo);
         
+        if (UsuarioEm.usuarioEm.containsKey(correo)) {
+            v.setVisible(true);
+            UsuarioEm e = UsuarioEm.usuarioEm.get(correo);
+            
             EditarUEm.campoNombreUEM.setText(e.nombre);
             EditarUEm.campoCedulaUEM.setText(e.cedula);
             EditarUEm.campoCorreoUEM.setText(e.correo);
             EditarUEm.campoCargoUEM.setText(e.cargo);
-        
-            }
-       dispose();
-        
+            
+        }
+        setVisible(false);
+
     }//GEN-LAST:event_EditarActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        String correo = etqCorreo.getText();
+        
+        try {
+            UsuarioEm.usuarioEm = Almacenamiento.recuperarUE();
+        } catch (Exception ex) {
+            System.out.println("Erro al recuperar la cuenta " + ex);
+            
+        }
+        
+        if (UsuarioEm.usuarioEm.containsKey(correo)) {
+            UsuarioEm.usuarioEm.remove(correo);
+            setVisible(false);
+            InicioApp v = new InicioApp();
+            v.setLocationRelativeTo(null);
+            v.setVisible(true);
+        }
+    }//GEN-LAST:event_EliminarActionPerformed
 
     /**
      * @param args the command line arguments

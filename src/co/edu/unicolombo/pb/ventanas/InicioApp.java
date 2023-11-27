@@ -24,25 +24,35 @@ public class InicioApp extends javax.swing.JFrame {
     public InicioApp() {
         initComponents();
     }
-
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         menuEmpresa = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         registrarEmpresa = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        btnayuda = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        loquesomos = new javax.swing.JMenuItem();
+
+        jMenuItem3.setText("jMenuItem3");
+
+        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Unempleo");
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/descarga.png"))); // NOI18N
+        jLabel9.setText("BIENVENIDOS A UNEMPLEO");
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -76,34 +86,27 @@ public class InicioApp extends javax.swing.JFrame {
         });
         menuEmpresa.add(registrarEmpresa);
 
-        jMenu6.setText("Reportes");
-
-        jMenuItem6.setText("Listar todas...");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Listar Empresa");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem6);
-
-        jMenuItem7.setText("Por Nombre...");
-        jMenu6.add(jMenuItem7);
-
-        menuEmpresa.add(jMenu6);
+        menuEmpresa.add(jMenuItem1);
 
         jMenuBar1.add(menuEmpresa);
 
-        jMenu5.setText("AYUDA");
+        jMenu2.setText("AYUDA");
 
-        btnayuda.setText("Que somos");
-        btnayuda.addActionListener(new java.awt.event.ActionListener() {
+        loquesomos.setText("QUE SOMOS");
+        loquesomos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnayudaActionPerformed(evt);
+                loquesomosActionPerformed(evt);
             }
         });
-        jMenu5.add(btnayuda);
+        jMenu2.add(loquesomos);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -111,11 +114,11 @@ public class InicioApp extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 524, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
         );
 
         pack();
@@ -123,13 +126,12 @@ public class InicioApp extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         
-        PerfilUsuario v = new  PerfilUsuario();
+        PerfilUsuario v = new PerfilUsuario();
         v.setLocationRelativeTo(null);
         PerfilUsuarioEmpresa u = new PerfilUsuarioEmpresa();
         u.setLocationRelativeTo(null);
         
-         String correo = InicioSesionGlobal.campoCorreo.getText();
-        
+        String correo = InicioSesionGlobal.campoCorreo.getText();
         
         try {
             UsuarioC.candidato = Almacenamiento.recuperarUC();
@@ -137,53 +139,52 @@ public class InicioApp extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(InicioApp.class.getName()).log(Level.SEVERE, null, ex);
         }
-            if (UsuarioC.candidato.containsKey(correo)) {
-                
-              UsuarioC e = UsuarioC.candidato.get(correo);
-        if(e instanceof UsuarioC){
-             v.setVisible(true);
-            PerfilUsuario.etqProfesion.setText(e.nombre);
-            PerfilUsuario.etqCedula.setText(e.cedula);
-            PerfilUsuario.etqProfesion.setText(e.profesion);
-            PerfilUsuario.etqCorreo.setText(e.correo);
-            PerfilUsuario.etqExperiencia.setText(e.experiencia_laboral);
-            PerfilUsuario.etqEdad.setText(e.edad);
-        }
+        if (UsuarioC.candidato.containsKey(correo)) {
+            
+            UsuarioC e = UsuarioC.candidato.get(correo);
+            if (e instanceof UsuarioC) {
+                v.setVisible(true);
+                PerfilUsuario.etqProfesion.setText(e.nombre);
+                PerfilUsuario.etqCedula.setText(e.cedula);
+                PerfilUsuario.etqProfesion.setText(e.profesion);
+                PerfilUsuario.etqCorreo.setText(e.correo);
+                PerfilUsuario.etqExperiencia.setText(e.experiencia_laboral);
+                PerfilUsuario.etqEdad.setText(e.edad);
             }
-            else if (UsuarioEm.usuarioEm.containsKey(correo)){
-                
+        } else if (UsuarioEm.usuarioEm.containsKey(correo)) {
+            
             UsuarioEm e = UsuarioEm.usuarioEm.get(correo);
-            if(e instanceof UsuarioEm){
-                 u.setVisible(true);
-            PerfilUsuarioEmpresa.etqNombre.setText(e.nombre);
-            PerfilUsuarioEmpresa.etqCedula.setText(e.cedula);
-            PerfilUsuarioEmpresa.etqCargo.setText(e.cargo);
-            PerfilUsuarioEmpresa.etqCorreo.setText(e.correo);
+            if (e instanceof UsuarioEm) {
+                u.setVisible(true);
+                PerfilUsuarioEmpresa.etqNombre.setText(e.nombre);
+                PerfilUsuarioEmpresa.etqCedula.setText(e.cedula);
+                PerfilUsuarioEmpresa.etqCargo.setText(e.cargo);
+                PerfilUsuarioEmpresa.etqCorreo.setText(e.correo);
             }
             
-         }
-            
-            
+        }
+        
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-    PerfilEmpresa Em = new PerfilEmpresa();
-    Em.setLocationRelativeTo(this);
-
-    String correo = InicioSesionGlobal.campoCorreo.getText();
-            try {
-                UsuarioEm.usuarioEm = Almacenamiento.recuperarUE();
-                 Empresa.empresas = Almacenamiento.recuperarE();
+        PerfilEmpresa Em = new PerfilEmpresa();
+        Em.setLocationRelativeTo(this);
+        
+        String correo = InicioSesionGlobal.campoCorreo.getText();
+        try {
+            UsuarioEm.usuarioEm = Almacenamiento.recuperarUE();
+            Empresa.empresas = Almacenamiento.recuperarE();
         } catch (Exception ex) {
             Logger.getLogger(InicioApp.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         if (UsuarioEm.usuarioEm.containsKey(correo)) {
             UsuarioEm e = UsuarioEm.usuarioEm.get(correo);
 
             // Asegúrate de que el método getEmpresaAsociada() devuelva la empresa correctamente
             Empresa empresa = e.getEmpresaAsociada();
-
+            
             if (empresa != null) {
                 // Mostrar los datos de la empresa en la ventana PerfilEmpresa
                 Em.setVisible(true);
@@ -195,30 +196,30 @@ public class InicioApp extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró la empresa asociada.");
             }
-}
+        }
 
-// Dispose solo después de mostrar la ventana PerfilEmpresa
-dispose();
+
+        setVisible(false);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void registrarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEmpresaActionPerformed
-      VentanaRegistroEmpresa v = new VentanaRegistroEmpresa(this, true);
-      v.setLocationRelativeTo(null);
-      v.setVisible(true);
-      dispose();
+        VentanaRegistroEmpresa v = new VentanaRegistroEmpresa(this, true);
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_registrarEmpresaActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-     VentanaListarEmpresa l = new VentanaListarEmpresa();
-      l.setLocationRelativeTo(null);
-      l.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       ListaEmpresa e = new ListaEmpresa();
+       e.setVisible(true);
+       e.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void btnayudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnayudaActionPerformed
-       VentanaAyuda a = new VentanaAyuda();
-      a.setLocationRelativeTo(null);
-      a.setVisible(true);
-    }//GEN-LAST:event_btnayudaActionPerformed
+    private void loquesomosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loquesomosActionPerformed
+AYUDA a = new AYUDA();
+a.setVisible(true);
+a.setLocationRelativeTo(null);
+    }//GEN-LAST:event_loquesomosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,15 +258,16 @@ dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem btnayuda;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem loquesomos;
     private javax.swing.JMenu menuEmpresa;
     private javax.swing.JMenuItem registrarEmpresa;
     // End of variables declaration//GEN-END:variables

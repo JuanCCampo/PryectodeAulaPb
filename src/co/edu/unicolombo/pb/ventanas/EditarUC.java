@@ -6,10 +6,7 @@ package co.edu.unicolombo.pb.ventanas;
 
 import co.edu.unicolombo.pb.entidades.UsuarioC;
 import co.edu.unicolombo.pb.persistencia.Almacenamiento;
-import static co.edu.unicolombo.pb.ventanas.PerfilUsuario.etqCorreo;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -157,9 +154,7 @@ public class EditarUC extends javax.swing.JFrame {
            e.experiencia_laboral = campoExperienciaLaboral.getText();
            e.profesion = campoProfesion.getText();
            
-            UsuarioC.candidato.put(correo, e);
-            
-           
+            UsuarioC.candidato.put(correo, e);          
             
              try {
             Almacenamiento.guardarUC(UsuarioC.candidato);
@@ -176,7 +171,7 @@ public class EditarUC extends javax.swing.JFrame {
             PerfilUsuario.etqExperiencia.setText(e.experiencia_laboral);    
         }
         
-            dispose();
+            setVisible(false);
          
         u.setVisible(true);
          

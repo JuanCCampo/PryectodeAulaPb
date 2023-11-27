@@ -138,60 +138,57 @@ public class VentanaRegistroConvocatorias extends javax.swing.JFrame {
     }//GEN-LAST:event_campoNumeroActionPerformed
 
     private void btnCrearConvocatoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearConvocatoriaActionPerformed
-       try {
-        // Recuperar empresas desde el almacenamiento
-        Empresa.empresas = Almacenamiento.recuperarE();
-        System.out.println("Usuarios recuperados: " + Empresa.empresas);
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error al recuperar empresas: " + ex.getMessage());
-        return;
-    }
-        
-        
+        try {
+            // Recuperar empresas desde el almacenamiento
+            Empresa.empresas = Almacenamiento.recuperarE();
+            System.out.println("Usuarios recuperados: " + Empresa.empresas);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al recuperar empresas: " + ex.getMessage());
+            return;
+        }
+
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
 
-    int numero = Integer.parseInt(campoNumero.getText());
-    String vacante = campoVacante.getText();
-    String sueldo = campoSueldo.getText();
-    Date fechaInicio = null;
-    Date fechaFin = null;
+        int numero = Integer.parseInt(campoNumero.getText());
+        String vacante = campoVacante.getText();
+        String sueldo = campoSueldo.getText();
+        Date fechaInicio = null;
+        Date fechaFin = null;
         try {
             fechaInicio = formatoFecha.parse(campoFechaInicio.getText());
-             fechaFin = formatoFecha.parse(campoFechaFin.getText());
+            fechaFin = formatoFecha.parse(campoFechaFin.getText());
         } catch (ParseException ex) {
             Logger.getLogger(VentanaRegistroConvocatorias.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    String correo = PerfilEmpresa.etqCorreo.getText();
-    if (Empresa.empresas.containsKey(correo)) {
-        Empresa empresa = Empresa.empresas.get(correo);
+        String correo = PerfilEmpresa.etqCorreo.getText();
+        if (Empresa.empresas.containsKey(correo)) {
+            Empresa empresa = Empresa.empresas.get(correo);
 
-        // Crear una nueva convocatoria
-        Convocatoria convocatoria = new Convocatoria(numero, fechaInicio, fechaFin, vacante, sueldo);
-        convocatoria.numero = numero;
-        convocatoria.Fecha_Inicio = fechaInicio;
-        convocatoria.Fecha_Fin = fechaFin;
-        convocatoria.Vacante = vacante;
-        convocatoria.Sueldo = sueldo;
-        Convocatoria.convocatorias.put(numero,convocatoria);
-        System.out.println("Numero de la convocatoria a crear: " + numero);
-        
+            // Crear una nueva convocatoria
+            Convocatoria convocatoria = new Convocatoria(numero, fechaInicio, fechaFin, vacante, sueldo);
+            convocatoria.numero = numero;
+            convocatoria.Fecha_Inicio = fechaInicio;
+            convocatoria.Fecha_Fin = fechaFin;
+            convocatoria.Vacante = vacante;
+            convocatoria.Sueldo = sueldo;
+            Convocatoria.convocatorias.put(numero, convocatoria);
+            System.out.println("Numero de la convocatoria a crear: " + numero);
 
+            empresa.crearConvocatoria(numero, fechaInicio, fechaFin, vacante, sueldo);
+            System.out.println("Convocatoria asociada a la empresa: " + convocatoria);
+            try {
+                Almacenamiento.guardarConvocatorias(Convocatoria.convocatorias);
+                JOptionPane.showMessageDialog(this, "Registrado con éxito...");
+            } catch (IOException error) {
+                JOptionPane.showMessageDialog(this, error.getMessage());
+            }
 
-        empresa.crearConvocatoria(numero, fechaInicio, fechaFin, vacante, sueldo);
-       System.out.println("Convocatoria asociada a la empresa: " + convocatoria);
-     } else {
-        JOptionPane.showMessageDialog(this, "La empresa con el correo proporcionado no existe.");
-    }
-    try {
-        Almacenamiento.guardarConvocatorias(Convocatoria.convocatorias);
-        JOptionPane.showMessageDialog(this, "Registrado con éxito...");
-    } catch (IOException error) {
-        JOptionPane.showMessageDialog(this, error.getMessage());
-}
+        } else {
+            JOptionPane.showMessageDialog(this, "La empresa con el correo proporcionado no existe.");
+        }
+        setVisible(false);
 
-
-       
     }//GEN-LAST:event_btnCrearConvocatoriaActionPerformed
 
     /**

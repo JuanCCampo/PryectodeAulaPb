@@ -4,8 +4,6 @@
  */
 package co.edu.unicolombo.pb.ventanas;
 
-
-
 import co.edu.unicolombo.pb.entidades.Empresa;
 import co.edu.unicolombo.pb.entidades.UsuarioEm;
 import co.edu.unicolombo.pb.persistencia.Almacenamiento;
@@ -49,12 +47,6 @@ public class PerfilEmpresa extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         FtPerfil = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         etqNombre = new javax.swing.JLabel();
         etqNit = new javax.swing.JLabel();
         etqCorreo = new javax.swing.JLabel();
@@ -67,6 +59,7 @@ public class PerfilEmpresa extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         Editar = new javax.swing.JMenuItem();
         Eliminar = new javax.swing.JMenuItem();
+        jMenuItemVolver = new javax.swing.JMenuItem();
 
         jButton3.setText("jButton3");
 
@@ -137,20 +130,6 @@ public class PerfilEmpresa extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
-
-        jLabel3.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
-        jLabel3.setText("MISION");
-
-        jLabel5.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
-        jLabel5.setText("VISION");
-
         jLabel6.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
         jLabel6.setText("Direccion:");
 
@@ -172,7 +151,15 @@ public class PerfilEmpresa extends javax.swing.JFrame {
         jMenu1.add(Editar);
 
         Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
         jMenu1.add(Eliminar);
+
+        jMenuItemVolver.setText("Volver");
+        jMenu1.add(jMenuItemVolver);
 
         jMenuBar1.add(jMenu1);
 
@@ -188,13 +175,8 @@ public class PerfilEmpresa extends javax.swing.JFrame {
                     .addComponent(labelDePfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2)
-                            .addComponent(FtPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(14, 14, 14)
+                        .addComponent(FtPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,19 +232,8 @@ public class PerfilEmpresa extends javax.swing.JFrame {
                     .addComponent(labelDePfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(FtPerfil)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -272,55 +243,75 @@ public class PerfilEmpresa extends javax.swing.JFrame {
     private void FtPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FtPerfilActionPerformed
         String Ruta = "";
         JFileChooser jFileChooser = new JFileChooser();
-        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JGP,PNG & GIT","jgp","png","git");
+        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JGP,PNG & GIT", "jgp", "png", "git");
         jFileChooser.setFileFilter(filtrado);
 
         int respuesta = jFileChooser.showOpenDialog(this);
-        if(respuesta == JFileChooser.APPROVE_OPTION){
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
             Ruta = jFileChooser.getSelectedFile().getPath();
 
             Image nImagen = new ImageIcon(Ruta).getImage();
-            ImageIcon mIcono = new ImageIcon (nImagen.getScaledInstance(labelDePfEmpresa.getWidth(), labelDePfEmpresa.getHeight(),Image.SCALE_SMOOTH));
+            ImageIcon mIcono = new ImageIcon(nImagen.getScaledInstance(labelDePfEmpresa.getWidth(), labelDePfEmpresa.getHeight(), Image.SCALE_SMOOTH));
             labelDePfEmpresa.setIcon(mIcono);
+            
 
         }
     }//GEN-LAST:event_FtPerfilActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-       String correo = etqCorreo.getText();
-       EditarEm v = new EditarEm();
-       v.setLocationRelativeTo(null);
-       
+        String correo = etqCorreo.getText();
+        EditarEm v = new EditarEm();
+        v.setLocationRelativeTo(null);
+
         try {
             Empresa.empresas = Almacenamiento.recuperarE();
         } catch (Exception ex) {
             Logger.getLogger(PerfilUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         if (Empresa.empresas.containsKey(correo)) {
-                 v.setVisible(true);
-              Empresa e = Empresa.empresas.get(correo);
-        
+            v.setVisible(true);
+            Empresa e = Empresa.empresas.get(correo);
+
             EditarEm.campoNombreEM.setText(e.nombre);
             EditarEm.campoNitEM.setText(e.nit);
             EditarEm.campoTelefonoEM.setText(e.telefono);
             EditarEm.campoCorreoEM.setText(e.correo);
             EditarEm.campoDirreccionEM.setText(e.direccion);
-        
-            }
-       dispose();
-        
+
+        }
+        setVisible(false);
+
     }//GEN-LAST:event_EditarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      VentanaRegistroConvocatorias v = new VentanaRegistroConvocatorias();
-      v.setLocationRelativeTo(null);
-      v.setVisible(true);
+        VentanaRegistroConvocatorias v = new VentanaRegistroConvocatorias();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ;
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        String correo = etqCorreo.getText();
+
+        try {
+            Empresa.empresas = Almacenamiento.recuperarE();
+        } catch (Exception ex) {
+            System.out.println("Erro al recuperar la cuenta " + ex);
+
+        }
+
+        if (Empresa.empresas.containsKey(correo)) {
+            Empresa.empresas.remove(correo);
+            setVisible(false);
+            InicioApp v = new InicioApp();
+            v.setLocationRelativeTo(null);
+            v.setVisible(true);
+        }
+    }//GEN-LAST:event_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,19 +378,14 @@ public class PerfilEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemVolver;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel labelDePfEmpresa;
     // End of variables declaration//GEN-END:variables
 }

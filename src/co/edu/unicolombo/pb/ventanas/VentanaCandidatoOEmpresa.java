@@ -239,14 +239,14 @@ public class VentanaCandidatoOEmpresa extends javax.swing.JFrame {
      VentanaRegistroUsuarioEm IE= new VentanaRegistroUsuarioEm(this,true);
       IE.setLocationRelativeTo(this);
       IE.setVisible(true);
-      dispose();
+        setVisible(false);
     }//GEN-LAST:event_btnEmpresaActionPerformed
 
     private void BtnUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUsuario1ActionPerformed
      VentanaRegistroUsuario US = new VentanaRegistroUsuario(this, true);
      US.setLocationRelativeTo(this);
      US.setVisible(true);
-     dispose();
+        setVisible(false);
     }//GEN-LAST:event_BtnUsuario1ActionPerformed
 
     private void BtnUsuario1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUsuario1MouseEntered

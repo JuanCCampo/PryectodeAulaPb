@@ -4,18 +4,19 @@
  */
 package co.edu.unicolombo.pb.ventanas;
 
-
 import co.edu.unicolombo.pb.entidades.Empresa;
 import co.edu.unicolombo.pb.persistencia.Almacenamiento;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import co.edu.unicolombo.pb.entidades.UsuarioC;
+import static co.edu.unicolombo.pb.ventanas.PerfilEmpresa.etqNombre;
 import static co.edu.unicolombo.pb.ventanas.PerfilUsuario.etqCorreo;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Jesus Ramos
@@ -204,6 +205,11 @@ public class PerfilUsuario extends javax.swing.JFrame {
 
         jMenuItem2.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
         jMenuItem2.setText("Eliminar...");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem2);
 
         jMenuItem3.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
@@ -335,68 +341,89 @@ public class PerfilUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void FtPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FtPerfilActionPerformed
-       String Ruta = "";
+        String Ruta = "";
         JFileChooser jFileChooser = new JFileChooser();
-        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JGP,PNG & GIT","jgp","png","git");
+        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JGP,PNG & GIT", "jgp", "png", "git");
         jFileChooser.setFileFilter(filtrado);
-        
+
         int respuesta = jFileChooser.showOpenDialog(this);
-        if(respuesta == JFileChooser.APPROVE_OPTION){
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
             Ruta = jFileChooser.getSelectedFile().getPath();
-            
+
             Image nImagen = new ImageIcon(Ruta).getImage();
-            ImageIcon mIcono = new ImageIcon (nImagen.getScaledInstance(labelDeimagen.getWidth(), labelDeimagen.getHeight(),Image.SCALE_SMOOTH));
+            ImageIcon mIcono = new ImageIcon(nImagen.getScaledInstance(labelDeimagen.getWidth(), labelDeimagen.getHeight(), Image.SCALE_SMOOTH));
             labelDeimagen.setIcon(mIcono);
-                   
+
         }
     }//GEN-LAST:event_FtPerfilActionPerformed
 
     private void PonerCedulaFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PonerCedulaFotoActionPerformed
-       String Ruta= "";
-       JFileChooser jFileChooser = new JFileChooser();
-        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JGP,PNG & GIT","jgp","png","git");
+        String Ruta = "";
+        JFileChooser jFileChooser = new JFileChooser();
+        FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JGP,PNG & GIT", "jgp", "png", "git");
         jFileChooser.setFileFilter(filtrado);
-        
+
         int respuesta = jFileChooser.showOpenDialog(this);
-        if(respuesta == JFileChooser.APPROVE_OPTION){
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
             Ruta = jFileChooser.getSelectedFile().getPath();
-            
+
             Image cImagen = new ImageIcon(Ruta).getImage();
-            ImageIcon cIcono = new ImageIcon (cImagen.getScaledInstance(labelDeCedulaft.getWidth(), labelDeCedulaft.getHeight(),Image.SCALE_SMOOTH));
+            ImageIcon cIcono = new ImageIcon(cImagen.getScaledInstance(labelDeCedulaft.getWidth(), labelDeCedulaft.getHeight(), Image.SCALE_SMOOTH));
             labelDeCedulaft.setIcon(cIcono);
-                   
+
         }
-       
+
     }//GEN-LAST:event_PonerCedulaFotoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-         String correo = etqCorreo.getText();
-       EditarUC v = new EditarUC();
-       v.setLocationRelativeTo(null);
-       
+        String correo = etqCorreo.getText();
+        EditarUC v = new EditarUC();
+        v.setLocationRelativeTo(null);
+
         try {
             UsuarioC.candidato = Almacenamiento.recuperarUC();
         } catch (Exception ex) {
             Logger.getLogger(PerfilUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         if (UsuarioC.candidato.containsKey(correo)) {
-                 v.setVisible(true);
-              UsuarioC e = UsuarioC.candidato.get(correo);
-        
+            v.setVisible(true);
+            UsuarioC e = UsuarioC.candidato.get(correo);
+
             EditarUC.campoNombre.setText(e.nombre);
             EditarUC.campoCedula.setText(e.cedula);
             EditarUC.campoProfesion.setText(e.profesion);
             EditarUC.campoCorreo.setText(e.correo);
             EditarUC.campoExperienciaLaboral.setText(e.experiencia_laboral);
-        
-            }
-       dispose();
+
+        }
+        setVisible(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-  
+        ListaConvocatorias v = new ListaConvocatorias();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        String correo = etqCorreo.getText();
+
+        try {
+            UsuarioC.candidato = Almacenamiento.recuperarUC();
+        } catch (Exception ex) {
+            System.out.println("Erro al recuperar la cuenta " + ex);
+
+        }
+
+        if (UsuarioC.candidato.containsKey(correo)) {
+            UsuarioC.candidato.remove(correo);
+            setVisible(false);
+            InicioApp v = new InicioApp();
+            v.setLocationRelativeTo(null);
+            v.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

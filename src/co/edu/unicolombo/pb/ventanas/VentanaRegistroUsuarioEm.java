@@ -1,10 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package co.edu.unicolombo.pb.ventanas;
-
-
 
 import co.edu.unicolombo.pb.entidades.Empresa;
 import co.edu.unicolombo.pb.entidades.UsuarioC;
@@ -13,10 +7,7 @@ import co.edu.unicolombo.pb.persistencia.Almacenamiento;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
-
-
 public class VentanaRegistroUsuarioEm extends javax.swing.JDialog {
-   
 
     /**
      * Creates new form VentanaEmpresa
@@ -177,38 +168,39 @@ public class VentanaRegistroUsuarioEm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarEmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEmActionPerformed
-    
+
         //Registro de Empresa
-        String nombreEm = campoNombreEmpresa.getText();
-        String contraseña = String.valueOf(campoContrasena.getPassword());
-        String cedula = campoCedula.getText();
-        String correo = campoCorreo.getText();
-        String cargo = campoCargo.getText();
-       
-        if (UsuarioC.candidato.containsKey(correo)|| Empresa.empresas.containsKey(correo)||UsuarioEm.usuarioEm.containsKey(correo)) {
-           JOptionPane.showMessageDialog(this, "Ya se registro una cuenta o una empresa con este correo...");
-                return;
-            }else {
-            
+            String nombreEm = campoNombreEmpresa.getText();
+            String contraseña = String.valueOf(campoContrasena.getPassword());
+            String cedula = campoCedula.getText();
+            String correo = campoCorreo.getText();
+            String cargo = campoCargo.getText();
+
+        if (UsuarioC.candidato.containsKey(correo) || Empresa.empresas.containsKey(correo) || UsuarioEm.usuarioEm.containsKey(correo)) {
+            JOptionPane.showMessageDialog(this, "Ya se registro una cuenta o una empresa con este correo...");
+            return;
+        } else {
+
             // se crea la empresa
-        UsuarioEm usuarioEm = new UsuarioEm(contraseña, correo, nombreEm, cedula, cargo);
-        usuarioEm.nombre = nombreEm;
-        usuarioEm.correo = correo;
-        usuarioEm.cedula = cedula;
-        usuarioEm.contrasena = contraseña;
-        usuarioEm.cargo = cargo;
-       
-     
-        UsuarioEm.usuarioEm.put(correo,usuarioEm);
+            UsuarioEm usuarioEm = new UsuarioEm(contraseña, correo, nombreEm, cedula, cargo);
+            usuarioEm.nombre = nombreEm;
+            usuarioEm.correo = correo;
+            usuarioEm.cedula = cedula;
+            usuarioEm.contrasena = contraseña;
+            usuarioEm.cargo = cargo;
+
+            UsuarioEm.usuarioEm.put(correo, usuarioEm);
+            try {
+                Almacenamiento.guardarUE(UsuarioEm.usuarioEm);
+                JOptionPane.showMessageDialog(this, "Registrado con exito...");
+            } catch (IOException error) {
+                JOptionPane.showMessageDialog(this, error.getMessage());
+            }
         }
-         try {
-            Almacenamiento.guardarUE(UsuarioEm.usuarioEm);
-            JOptionPane.showMessageDialog(this, "Registrado con exito...");
-        } catch (IOException error) {
-            JOptionPane.showMessageDialog(this, error.getMessage());
-        }
-        dispose();
-        
+
+    
+        setVisible(false);
+
     }//GEN-LAST:event_btnRegistrarEmActionPerformed
 
     /**
